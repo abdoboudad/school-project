@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('level_id')->constrained('levels');
+            $table->foreignId('level_id')->constrained('levels')->onDelete('cascade');
             $table->timestamps();
         });
     }

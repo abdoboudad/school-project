@@ -12,7 +12,7 @@
     <thead>
         <tr class="bg-teal-400">
             <th>id</th>
-            <th>nom du classe</th>
+            <th>nom du exam</th>
         </tr>
     </thead>
     <tbody>
@@ -21,7 +21,7 @@
                 @if ($exam->type == 'exam')
                     <tr>
                         <td>{{ $exam->id }}</td>
-                        <td><a href="{{ route('learn.exams',$exam->id) }}">{{ $exam->title }}</a></td>
+                        <td><a href="{{ route('courses.course',$exam->id) }}">{{ $exam->title }}</a></td>
                     </tr>
                 @else
 

@@ -34,21 +34,23 @@ class CoursesController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
-            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+ 
             'file' => 'max:2048',
             'level'=>'required',
             'type'=>'required',
-            'subject_id' => 'required', 
+            'subject_id' => 'required|integer', 
         ]);
         $thumbnail = $this->getData($request,'thumbnail');
-        $img = $this->getData($request,'imgs');
         $file = $this->getData($request,'docs');
-
+        $namesarray = [];
+        foreach($request->file_name as $f){
+            $namesarray[] = '-'.$f;
+        }
         Courses::create([
             'title'=>$request->title,
             'type'=>$request->type,
             'thumbnail'=>$thumbnail,
-            'photo'=>$img,
+            'file_name'=>$file != null ? implode('',$namesarray) : '',
             'file'=>$file != null ? implode('',$file) : '',
             'link'=>$request->link,
             'text'=>$request->text,
@@ -58,7 +60,6 @@ class CoursesController extends Controller
 
         return redirect()->back()
             ->with('success', 'Lesson crèe avec succès.');
-        return $img;
     }
 
     public function show(Courses $lesson)
@@ -78,20 +79,22 @@ class CoursesController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
-            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+         
             'level'=>'required',
             'type'=>'required',
-            'subject_id' => 'required', 
+            'subject_id' => 'required|integer', 
         ]);
         $thumbnail = $this->getData($request,'thumbnail');
-        $img = $this->getData($request,'imgs');
         $file = $this->getData($request,'docs');
-
+        $namesarray = [];
+        foreach($request->file_name as $f){
+            $namesarray[] = '-'.$f;
+        }
         Courses::findOrFail($id)->update([
             'title'=>$request->title,
             'type'=>$request->type,
             'thumbnail'=>$thumbnail,
-            'photo'=>$img,
+            'file_name'=>$file != null ? implode('',$namesarray) : '',
             'file'=>$file != null ? implode('',$file) : '',
             'link'=>$request->link,
             'text'=>$request->text,

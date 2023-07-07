@@ -14,13 +14,6 @@
         </div>
     @endif
     
-        
-
-
-
-
-
-
     <table class="table table-bordered table-striped table-hover">
         <thead>
             <tr class="bg-teal-400">
@@ -43,7 +36,7 @@
                                 <form action="{{ route('users.destroy',$user->id) }}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" style="border: 0;background-color:transparent;"><i class="icon-trash"></i></button>                                
+                                    <button type="submit" onclick="return confirm('هل انت متأكد انك تريد الحذف  ؟');" style="border: 0;background-color:transparent;"><i class="icon-trash"></i></button>                                
                                 </form> 
                 
                             </li>

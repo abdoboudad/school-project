@@ -29,7 +29,7 @@
                                 <form action={{ route('courses.destroy',$course->id) }} method="post">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" style="border: 0;background-color:transparent;"><i class="icon-trash"></i></button>
+                                    <button type="submit" onclick="return confirm('هل انت متأكد انك تريد الحذف  ؟');" style="border: 0;background-color:transparent;"><i class="icon-trash"></i></button>
                                 </form>
                             </li>
                     </ul>

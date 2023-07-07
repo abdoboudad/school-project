@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Level;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -78,7 +77,7 @@ class UserController extends Controller
         if(isset($request->password)){
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'email' => ['required', 'string', 'email', 'max:255'],
                 'password' => ['string', 'min:8', 'confirmed'],
                 'phone'=>['required', 'string', 'max:255'],
                 'role'=>['required', 'string', 'max:255'],
@@ -95,7 +94,7 @@ class UserController extends Controller
         }else{
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'email' => ['required', 'string', 'email', 'max:255'],
                 'phone'=>['required', 'string', 'max:255'],
                 'role'=>['required', 'string', 'max:255'],
             ]);

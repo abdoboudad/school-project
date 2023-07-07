@@ -28,12 +28,6 @@
                 <div class="tab-pane active" id="basic-justified-tab1">
                     <table class="table  table-bordered">
                         <tbody>
-                            <tr class="success">
-                                <td>Avatar</td>
-                                <td>
-                                    <img width="100px" src="{{ asset('icons/avatar.jpg') }}" alt="">
-                                </td>
-                            </tr>
                             <tr>
                                 <td>Nom Complete</td>
                                 <td>{{ $user->name }}</td>

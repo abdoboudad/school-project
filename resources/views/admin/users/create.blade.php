@@ -25,10 +25,10 @@
             @csrf
             <div class="row" id="exist" style="margin: 20px 0;display:none;">
                 <div class="col-md-6">
-                    <select name="level" id="level" class="form-control">
-                        <option value="opt1">Choisissez le nivaux</option>
+                    <select name="level" id="level_id" class="form-control" required>
+                        <option style="padding: 20px 0" selected>Choisir le nivaux</option>
                         @forelse ($levels as $level)
-                            <option value="{{ $level->name }}">{{ $level->name }}</option>
+                            <option style="padding: 20px 0" value="{{ $level->id }}">{{ $level->name }}</option>
                         @empty
                             <option value="opt2">no nivaux</option>
                         @endforelse
@@ -92,7 +92,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <select name="role" id="level_id" class="form-control" required>
+                    <select name="role" id="choose" class="form-control" required>
                         <option style="padding: 20px 0" value="admin">Directeur</option>
                         <option style="padding: 20px 0" value="teacher">MAÎTRE</option>
                         <option style="padding: 20px 0" value="student">Élève</option>
@@ -106,7 +106,7 @@
     </div>
 </div>
 <script>
-    let level_id =  document.querySelector("#level_id")
+    let level_id =  document.querySelector("#choose")
     let exist =  document.querySelector("#exist")
     level_id.addEventListener('change',()=>{
         console.log(level_id.value);
@@ -116,23 +116,22 @@
     })
 </script>
 <script>
-    let level_input = document.querySelector("#level")
-    let section_input = document.querySelector("#section");
-    level_input.addEventListener('change',()=>{
-        fetch(`https://school.takiddine.art/admin/sections/fetchdata/${level_input.value}`).then(res=>res.json()).then(data=>{
-        console.log(data)
-        section_input.innerHTML = ''
-        document.querySelector("#level > option:nth-child(1)").style.display = 'none'
-        data.forEach(content=>{
-            console.log(content['name']);
-            var option = document.createElement("option");
-            option.value = content['id'];  
-            option.textContent = content['name'];
-            section_input.appendChild(option);
-        });
-    })
-    })
-</script>
+            let level_input = document.querySelector("#level_id");
+            let subject_input = document.querySelector("#subject_id");
+            level_input.addEventListener('change',()=>{
+                fetch(`https://school.takiddine.art/admin/sections/fetchdata/${level_input.value}`).then(res=>res.json()).then(data=>{
+                console.log(data)
+                subject_input.innerHTML = ''
+                data.forEach(content=>{
+                    console.log(content['name']);
+                    var option = document.createElement("option");
+                    option.value = content['id'];  
+                    option.textContent = content['name'];
+                    subject_input.appendChild(option);
+                });
+            })
+            })
+    </script>
 
 
 @endsection

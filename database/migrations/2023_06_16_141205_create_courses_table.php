@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('thumbnail')->nullable();
-            $table->string('photo')->nullable();
+            $table->string('file_name')->nullable();
             $table->string('file')->nullable();
             $table->text('link')->nullable();
             $table->longText('text')->nullable();
-            $table->foreignId('subject_id')->constrained('subjects');
+            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
             $table->timestamps();
         });
     }

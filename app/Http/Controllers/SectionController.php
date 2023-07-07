@@ -7,6 +7,8 @@ use App\Models\Level;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function Psy\debug;
+
 class SectionController extends Controller
 {
     protected $auth;
@@ -72,8 +74,17 @@ class SectionController extends Controller
     }
 
     public function sectionsfind($name){
-        $level = Level::where('name',$name)->first();
-        return view('admin.sections.show', compact('level'));
+        if ($name != null) {
+            $level = Level::where('name', $name)->first();
+            if ($level) {
+                return view('admin.sections.show', compact('level'));
+            } else {
+                abort(404); // Return "Not Found" page
+            }
+        } else {
+            abort(404); // Return "Not Found" page
+        }
+
     }
 
     public function fetchdata($name){

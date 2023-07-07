@@ -13,7 +13,6 @@
         <tr class="bg-teal-400">
             <th>#</th>
             <th>nom du classe</th>
-            <th>nombre d'eleve</th>
             <th>action</th>
         </tr>
     </thead>
@@ -22,7 +21,6 @@
             <tr>
                 <td>{{ $section->id }}</td>
                 <td>{{ $section->name }}</td>
-                <td>{{ $section->students->count() }}</td>
                 <td>
                     <ul class="icons-list">
                         <li class="text-primary-600"><a href={{ route('sections.edit',$section->id) }}><i class="icon-pencil7"></i></a></li>
@@ -30,7 +28,7 @@
                             <form action={{ route('subjects.destroy',$section->id) }} method="post">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" style="border: 0;background-color:transparent;"><i class="icon-trash"></i></button>
+                                <button type="submit" onclick="return confirm('هل انت متأكد انك تريد الحذف  ؟');"  style="border: 0;background-color:transparent;"><i class="icon-trash"></i></button>
                             </form>
                         </li>
                         

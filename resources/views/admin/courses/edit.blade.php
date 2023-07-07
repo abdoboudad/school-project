@@ -29,7 +29,7 @@
     <div class="panel-body">
         <div class="text-center">
             <div class="icon-object border-success text-success"><i class=" icon-pencil"></i></div>
-            <h5 class="content-group-lg">modifier une cours</h5>
+            <h5 class="content-group-lg">modification d'examens et de cours</h5>
         </div>
         <form action={{ route('courses.update',$course->id) }} method="post" enctype="multipart/form-data">
             @csrf          
@@ -84,69 +84,72 @@
             </div>
             <label for="">Le lien vidéo</label>
             <div class="form-group has-feedback">
-                <input type="text" name="link" value="{{ $course->link }}" class="form-control file-styled" placeholder="Choisissez le lien vidéo">
+                <input type="url" name="link" value="{{ $course->link }}" class="form-control file-styled" placeholder="Choisissez le lien vidéo">
                 <div class="form-control-feedback">
                     <i class="icon-stack text-muted"></i>
                 </div>
             </div>
             
-
-            {{-- <legend class="text-bold">Image</legend>
-            <label for="">Image</label>
-            <div class="form-group has-feedback">
-                <input type="file" name="photo" value="{{$course->photo }}" class="form-control file-styled" placeholder="Choisissez titre du cours">
-                <div class="form-control-feedback">
-                    <i class="icon-stack text-muted"></i>
-                </div>
-            </div> --}}
-
-
             <legend class="text-bold">Description</legend>
 
             <textarea id="summernote" name="text"></textarea>
 
 
             <legend class="text-bold">pièce jointe</legend>
-
             <table class="table" id="fileTable">
                 <tr>
                     <th>nom du fichier</th>
                     <th colspan="2">fichier</th>
                 </tr>
                 <tr class="file-row">
-                    <td>nom example</td>
+                    <td class="namefile">
+                        <input type="text" name="file_name[]">
+                    </td>
                     <td>
-                        <input type="file" name="file[]" class="file-input">
+                        <input type="file" name="file[]" class="file-input myfile">
                     </td>
                     <td>
                         <a class="add-button">+</a>
                     </td>
-                </tr>
+                </tr>                       
             </table>
-            
-
-           
             <div class="text-right">
                 <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i class=" icon-pencil"></i></b> modifier le cours</button>
             </div>
     </form>
     </div>
 </div>
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var addButton = document.querySelectorAll('.add-button');
-      addButton.forEach(function(button) {
-          button.addEventListener('click', function() {
-              var fileRow = document.querySelector('.file-row');
-              var newRow = fileRow.cloneNode(true); // Clone the first row
-              newRow.querySelector('.file-input').value = ''; // Clear the file input value if needed
-              var tbody = document.querySelector('#fileTable tbody'); // Get the table body
-              tbody.appendChild(newRow); // Append the new row to the table body
-          });
+    var fileInputs = document.querySelectorAll('.myfile');
+    for(i=0;i<fileInputs.length;i++){
+        fileInputs[i].addEventListener('change',(e)=>{
+            fileInputs.forEach(function(element, index) {
+                var namefileElement = document.querySelectorAll('.namefile')[index];
+                namefileElement.textContent = element.files[0].name;
+            });
+        })
+    }
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var addButton = document.querySelectorAll('.add-button');
+  addButton.forEach(function(button) {
+    button.addEventListener('click', function() {
+      var fileRow = document.querySelector('.file-row');
+      var newRow = fileRow.cloneNode(true);
+      newRow.querySelector('.file-input').value = '';
+
+      var tbody = document.querySelector('#fileTable tbody');
+      tbody.appendChild(newRow);
+      var fileInputs = document.querySelectorAll('.myfile');
+      fileInputs.forEach(function(element, index) {
+        var namefileElement = document.querySelectorAll('.namefile')[index];
+        namefileElement.textContent = element.files[0].name;
       });
+    });
   });
-  </script>
+});
+</script>
   <script>
       setTimeout(() => {
           document.querySelector("body > div.tox.tox-silver-sink.tox-tinymce-aux > div > div > button").click()

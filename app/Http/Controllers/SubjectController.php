@@ -32,7 +32,7 @@ class SubjectController extends Controller
         Subject::create($request->all());
 
         return redirect()->back()
-            ->with('success', 'Subject created successfully.');
+            ->with('success', 'la matière crèe avec succès.');
     }
 
     public function show(Subject $subject)

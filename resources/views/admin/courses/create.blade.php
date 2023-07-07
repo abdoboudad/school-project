@@ -29,7 +29,7 @@
     <div class="panel-body">
         <div class="text-center">
             <div class="icon-object border-success text-success"><i class="icon-plus3"></i></div>
-            <h5 class="content-group-lg">Créer une cours ou exam</h5>
+            <h5 class="content-group-lg">Création d'examens et de cours</h5>
         </div>
         <form action={{ route('courses.store') }} method="post" enctype="multipart/form-data">
             @csrf          
@@ -77,26 +77,19 @@
             </div>
             <label for="">Le lien vidéo</label>
             <div class="form-group has-feedback">
-                <input type="text" name="link" value="{{ old('link') }}" class="form-control file-styled" placeholder="Choisissez le lien vidéo">
+                <input type="url" name="link" value="{{ old('link') }}" class="form-control file-styled" placeholder="Choisissez le lien vidéo">
                 <div class="form-control-feedback">
                     <i class="icon-stack text-muted"></i>
                 </div>
             </div>
             
 
-            {{-- <legend class="text-bold">Image</legend>
-            <label for="">Image</label>
-            <div class="form-group has-feedback">
-                <input type="file" name="photo" value="{{ old('photo') }}" class="form-control file-styled" placeholder="Choisissez titre du cours">
-                <div class="form-control-feedback">
-                    <i class="icon-stack text-muted"></i>
-                </div>
-            </div> --}}
+           
 
 
             <legend class="text-bold">Description</legend>
 
-            <textarea id="summernote" name="text"></textarea>
+            <textarea id="summernote" name="text">{{old('text')}}</textarea>
 
 
             <legend class="text-bold">pièce jointe</legend>
@@ -107,7 +100,9 @@
                     <th colspan="2">fichier</th>
                 </tr>
                 <tr class="file-row">
-                    <td class="namefile">undefined</td>
+                    <td class="namefile">
+                        <input type="text" name="file_name[]">
+                    </td>
                     <td>
                         <input type="file" name="file[]" class="file-input myfile">
                     </td>
@@ -122,6 +117,7 @@
     </form>
     </div>
 </div> 
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
   var addButton = document.querySelectorAll('.add-button');
@@ -133,12 +129,7 @@
 
       var tbody = document.querySelector('#fileTable tbody');
       tbody.appendChild(newRow);
-
-      var fileInputs = document.querySelectorAll('.myfile');
-      fileInputs.forEach(function(element, index) {
-        var namefileElement = document.querySelectorAll('.namefile')[index];
-        namefileElement.textContent = element.files[0].name;
-      });
+      
     });
   });
 });

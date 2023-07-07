@@ -11,9 +11,6 @@ trait FileTrait
         if($request->file('thumbnail') && $namefile == 'thumbnail'){
             return $request->file('thumbnail')->store($namefile,'files');
         }
-        if($request->file('photo') && $namefile == 'imgs'){
-            return $request->file('photo')->store($namefile,'files');
-        }
         if($request->file('file') && $namefile == 'docs'){
             
             $filesarray = [];
